@@ -1,5 +1,5 @@
 body {
-	background-color: lightYellow;
+	background-color: #95B9C7;
 	font-family:"Calibri";
 }
 .center{
@@ -11,9 +11,12 @@ body {
 	float:left;
 	margin-right:10px;
 }
-.clarFloat{
-	float:clear;
+input {
+  text-align: center;
 }
-#logo{
-	height:40px;
+.form-control {
+	border-color:black;
+}
+input[placeholder] {
+  color: black;
 }
