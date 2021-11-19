@@ -76,6 +76,12 @@
 										<div id='reg-err-alert-text' class="alert alert-danger" role="alert" style="text-align: center;">
 										</div>
 									</div>
+									<div id='registracija-prazna-polja' class = "collapse">
+										<br>
+										<div class="alert alert-warning" role="alert" style="text-align: center;">
+											Izpolni vsa polja!
+										</div>
+									</div>
               </form>
               <br>
             </div>

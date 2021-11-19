@@ -15,34 +15,42 @@ const formToJSON = elements => [].reduce.call(elements, (data, element) =>
 function registracija(){
 	const data = formToJSON(document.getElementById("obrazecRegistracija").elements);
 	data["tip"] = "registracija";
-	var JSONdata = JSON.stringify(data, null, "  ");
+	if (data["uporabnisko_ime"] == '' || data["geslo"] == '' || data["ime"] == '' ||  data["priimek"] == '' || data["email"] == ''){
+    $("#registracija-prazna-polja").show();
+    setTimeout(function (){
+      $("#registracija-prazna-polja").hide();
+    }, 2000);
+  }
+	else {  //ni praznih polj
+		var JSONdata = JSON.stringify(data, null, "  ");
 
-	var xmlhttp = new XMLHttpRequest();
+		var xmlhttp = new XMLHttpRequest();
 
-	xmlhttp.onreadystatechange = function(){
-		if (this.readyState == 4 && this.status == 201){
-			$("#registracijaGumb").css("background-color", "green");
-			$("#odgovor-ok-msg").show();
-			setTimeout(function (){
-				$("#registracijaGumb").css("background-color", "#007bff");
-				$("#odgovor-ok-msg").hide();
-				window.location = 'prijava.php';
-			}, 1000);
-		}
-		if(this.readyState == 4 && this.status != 201){
-			$("#registracijaGumb").css("background-color", "red");
-			var msg = (JSON.parse(this.responseText))["error_message"];
-			console.log(msg);
-			document.getElementById("reg-err-alert-text").innerHTML = msg;
-			$("#odgovor-err-msg").show();
-			setTimeout(function (){
-				$("#registracijaGumb").css("background-color", "#007bff");
-				document.getElementById("reg-err-alert-text").innerHTML = '';
-				$("#odgovor-err-msg").hide();
-			}, 2000);
-		}
-	};
+		xmlhttp.onreadystatechange = function(){
+			if (this.readyState == 4 && this.status == 201){
+				$("#registracijaGumb").css("background-color", "green");
+				$("#odgovor-ok-msg").show();
+				setTimeout(function (){
+					$("#registracijaGumb").css("background-color", "#007bff");
+					$("#odgovor-ok-msg").hide();
+					window.location = 'prijava.php';
+				}, 1000);
+			}
+			if(this.readyState == 4 && this.status != 201){
+				$("#registracijaGumb").css("background-color", "red");
+				var msg = (JSON.parse(this.responseText))["error_message"];
+				document.getElementById("reg-err-alert-text").innerHTML = msg;
+				$("#odgovor-err-msg").show();
+				setTimeout(function (){
+					$("#registracijaGumb").css("background-color", "#007bff");
+					document.getElementById("reg-err-alert-text").innerHTML = '';
+					$("#odgovor-err-msg").hide();
+				}, 2000);
+			}
+		};
 
-	xmlhttp.open("POST", "/projekt/api/uporabniki.php", true);
-	xmlhttp.send(JSONdata);
+		xmlhttp.open("POST", "/projekt/api/uporabniki.php", true);
+		xmlhttp.send(JSONdata);
+	}
+
 }
