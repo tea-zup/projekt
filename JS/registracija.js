@@ -14,7 +14,9 @@ const formToJSON = elements => [].reduce.call(elements, (data, element) =>
 
 function registracija(){
 	const data = formToJSON(document.getElementById("obrazecRegistracija").elements);
+	data["tip"] = "registracija";
 	var JSONdata = JSON.stringify(data, null, "  ");
+
 	var xmlhttp = new XMLHttpRequest();
 
 	xmlhttp.onreadystatechange = function(){
@@ -27,6 +29,6 @@ function registracija(){
 		}
 	};
 
-	xmlhttp.open("POST", "/projekt/api/registrirajUporabnika.php", true);
+	xmlhttp.open("POST", "/projekt/api/uporabniki.php", true);
 	xmlhttp.send(JSONdata);
 }
