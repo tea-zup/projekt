@@ -8,6 +8,7 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="CSS/stil.css" />
+		<script src="js/prijava.js"></script>
 	</head>
   <body>
 		<div id="indexPage" class="center">
@@ -27,25 +28,43 @@
               <h2 style="text-align: center; ">Prijava</h2>
               <br>
 
-              <form>
+              <form id="obrazecPrijava">
                 <!-- Username input -->
                 <div class="form-outline mb-3">
-                  <input type="text" id="uporabnisko_ime" class="form-control form-control-lg"
-                    placeholder="Uporabniško Ime" />
+                  <input type="text" name="uporabnisko_ime" class="form-control form-control-lg"
+                    placeholder="Uporabniško Ime" required />
                 </div>
 
                 <!-- Password input -->
                 <div class="form-outline mb-3">
-                  <input type="password" id="geslo" class="form-control form-control-lg"
-                    placeholder="Geslo" />
+                  <input type="password" name="geslo" class="form-control form-control-lg"
+                    placeholder="Geslo" required />
                 </div>
 
                 <div class="text-center text-lg-start mt-4 pt-2">
-                  <button type="button" class="btn btn-primary btn-lg"
-                    style="padding-left: 2.5rem; padding-right: 2.5rem;">Prijava</button>
+                  <button id="prijavaGumb" type="button" class="btn btn-primary btn-lg"
+                    style="padding-left: 2.5rem; padding-right: 2.5rem;" onclick="prijava()">Prijava</button>
                   <p class="medium fw-bold mt-2 pt-1 mb-0">Nimaš računa? <a href="registracija.php"
                       class="link-danger" id="preusmeriNaReg">Registracija</a></p>
                 </div>
+
+								<div id="prijava-ok-msg" class = "collapse">
+									<br>
+									<div class="alert alert-success" role="alert" style="text-align: center;">
+										Prijava je uspela!
+									</div>
+								</div>
+								<div id="prijava-err-msg" class = "collapse">
+									<br>
+									<div id='login-err-alert-text' class="alert alert-danger" role="alert" style="text-align: center;">
+									</div>
+								</div>
+								<div id='prijava-prazna-polja' class = "collapse">
+									<br>
+									<div class="alert alert-warning" role="alert" style="text-align: center;">
+	  								Izpolni vsa polja!
+									</div>
+								</div>
 
               </form>
               <br>

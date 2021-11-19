@@ -1,24 +1,55 @@
-// /**
-//  * Pridobi podatke iz obrazca in jih vrne v obliki JSON objekta.
-//  * @param  {HTMLFormControlsCollection} elements  Elementi obrazca
-//  * @return {Object}                               Object literal
-//  */
-// const formToJSON = elements => [].reduce.call(elements, (data, element) =>
-// {
-// 	if(element.name!="")
-// 	{
-// 		data[element.name] = element.value;
-// 	}
-//   return data;
-// }, {});
-//
-//
-// function prijava() {
-// 	const data = formToJSON(document.getElementById("obrazec").elements);	// vsebino obrazca pretvorimo v objekt
-// 	var JSONdata = JSON.stringify(data, null, "  ");						// objekt pretvorimo v znakovni niz v formatu JSON
-//   console.log(JSONdata);
-// 	var xmlhttp = new XMLHttpRequest();
-//   if (this.readyState == 4 && this.status == 201){					// zahteva je bila uspešno poslana, prišel je odgovor 201
-//     console.log(this.responseText);
-//   }
-// }
+/**
+ * Pridobi podatke iz obrazca in jih vrne v obliki JSON objekta.
+ * @param  {HTMLFormControlsCollection} elements
+ * @return {Object}
+ */
+const formToJSON = elements => [].reduce.call(elements, (data, element) =>
+{
+	if(element.name!="")
+	{
+		data[element.name] = element.value;
+	}
+  return data;
+}, {});
+
+function prijava(){
+  const data = formToJSON(document.getElementById("obrazecPrijava").elements);
+  data["tip"] = "prijava";
+  if (data["uporabnisko_ime"] == '' || data["geslo"] == ''){
+    $("#prijava-prazna-polja").show();
+    setTimeout(function (){
+      $("#prijava-prazna-polja").hide();
+    }, 2000);
+  }
+  else { //vsa polja so izpolnjena
+    var JSONdata = JSON.stringify(data, null, "  ");
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function(){
+      if (this.readyState == 4 && this.status == 200){
+        $("#prijavaGumb").css("background-color", "green");
+        $("#prijava-ok-msg").show();
+        setTimeout(function (){
+          $("#prijavaGumb").css("background-color", "#007bff");
+          $("#prijava-ok-msg").hide();
+          window.location = 'main.php';
+        }, 1000);
+      }
+      if (this.readyState == 4 && this.status != 200){
+        console.log(this.responseText);
+        $("#prijavaGumb").css("background-color", "red");
+        var msg = (JSON.parse(this.responseText))["error_message"];
+        document.getElementById("login-err-alert-text").innerHTML = msg;
+        $("#prijava-err-msg").show();
+        setTimeout(function (){
+          $("#prijavaGumb").css("background-color", "#007bff");
+          document.getElementById("login-err-alert-text").innerHTML = '';
+          $("#prijava-err-msg").hide();
+        }, 2000);
+      }
+    };
+
+    xmlhttp.open("POST", "/projekt/api/uporabniki.php", true);
+    xmlhttp.send(JSONdata);
+  }
+
+}

@@ -17,6 +17,9 @@
       if ($tip == 'registracija'){
         registracija_uporabnika();
       }
+      if ($tip == 'prijava'){
+        prijava_uporabnika();
+      }
     }
 		break;
 
@@ -61,6 +64,35 @@ function registracija_uporabnika(){
     else{
       http_response_code(409);
       pripravi_odgovor_napaka("Uporabnik že obstaja!");
+    }
+  }
+}
+
+function prijava_uporabnika(){
+  global $zbirka, $DEBUG;
+  $podatki = json_decode(file_get_contents('php://input'), true);
+
+  if(isset($podatki["uporabnisko_ime"], $podatki["geslo"])){
+    $uporabnisko_ime = mysqli_escape_string($zbirka, $podatki["uporabnisko_ime"]);
+    $geslo = mysqli_escape_string($zbirka, $podatki["geslo"]);
+
+    if(uporabnik_obstaja($uporabnisko_ime)){
+      $poizvedba = "SELECT geslo FROM uporabniki WHERE uporabnisko_ime LIKE '$uporabnisko_ime'";
+      $rezultat = mysqli_query($zbirka, $poizvedba);
+      $odgovor = mysqli_fetch_assoc($rezultat);
+      $hashDB =  $odgovor["geslo"];
+
+      if (password_verify($geslo, $hashDB)){
+        http_response_code(200);
+      }
+      else {
+        http_response_code(404);
+        pripravi_odgovor_napaka("Napacno ime ali geslo.");
+      }
+    }
+    else {
+      http_response_code(404);
+      pripravi_odgovor_napaka("Napacno ime ali geslo.");
     }
   }
 }
