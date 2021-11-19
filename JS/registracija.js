@@ -20,12 +20,26 @@ function registracija(){
 	var xmlhttp = new XMLHttpRequest();
 
 	xmlhttp.onreadystatechange = function(){
-		// if (this.readyState == 4 && this.status == 201){
-		// 	document.getElementById("odgovor").innerHTML="Dodajanje uspelo!";
-		// }
+		if (this.readyState == 4 && this.status == 201){
+			$("#registracijaGumb").css("background-color", "green");
+			$("#odgovor-ok-msg").show();
+			setTimeout(function (){
+				$("#registracijaGumb").css("background-color", "#007bff");
+				$("#odgovor-ok-msg").hide();
+				window.location = 'prijava.php';
+			}, 1000);
+		}
 		if(this.readyState == 4 && this.status != 201){
-      console.log(this.responseText);
-			// document.getElementById("odgovor").innerHTML="Dodajanje ni uspelo: "+this.status;
+			$("#registracijaGumb").css("background-color", "red");
+			var msg = (JSON.parse(this.responseText))["error_message"];
+			console.log(msg);
+			document.getElementById("reg-err-alert-text").innerHTML = msg;
+			$("#odgovor-err-msg").show();
+			setTimeout(function (){
+				$("#registracijaGumb").css("background-color", "#007bff");
+				document.getElementById("reg-err-alert-text").innerHTML = '';
+				$("#odgovor-err-msg").hide();
+			}, 2000);
 		}
 	};
 

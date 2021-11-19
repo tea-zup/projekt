@@ -12,10 +12,7 @@
 
 	case 'POST':
     $podatki = json_decode(file_get_contents('php://input'), true);
-    echo 'spredaj';
-    var_dump($podatki);
     if (isset($podatki["tip"])){
-      echo 'ratalo';
       $tip = mysqli_escape_string($zbirka, $podatki["tip"]);
       if ($tip == 'registracija'){
         registracija_uporabnika();

@@ -60,12 +60,22 @@
                 </div>
 
                 <div class="text-center text-lg-start mt-4 pt-2">
-                  <button type="button" class="btn btn-primary btn-lg"
+                  <button id="registracijaGumb" type="button" class="btn btn-primary btn-lg"
                     style="padding-left: 2.5rem; padding-right: 2.5rem;" onclick="registracija()">Registracija</button>
                   <p class="medium fw-bold mt-2 pt-1 mb-0">Že imaš račun? <a href="prijava.php"
                       class="link-danger">Prijava</a></p>
                 </div>
-
+									<div id="odgovor-ok-msg" class = "collapse">
+										<br>
+										<div class="alert alert-success" role="alert" style="text-align: center;">
+											Registracija je uspela!
+										</div>
+									</div>
+									<div id="odgovor-err-msg" class = "collapse">
+										<br>
+										<div id='reg-err-alert-text' class="alert alert-danger" role="alert" style="text-align: center;">
+										</div>
+									</div>
               </form>
               <br>
             </div>
