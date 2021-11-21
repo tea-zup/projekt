@@ -9,11 +9,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="CSS/stil.css" />
-    <script src="js/registracija.js"></script>
+		<script src="js/vsiPrevozi.js"></script>
 	</head>
-	<body>
+	<body onload="vsiPrevozi();">
 		<div class="center" id='main'>
 			<?php include "navbar.php"?>
+
+			<div id='tablelaPrevozov'>
+			<div>
 		</div>
 	</body>
 </html>
