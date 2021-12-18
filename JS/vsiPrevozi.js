@@ -7,7 +7,7 @@ function vsiPrevozi(){
 					var odgovorJSON = JSON.parse(this.responseText);
 				}
 				catch(e){
-					console.log("Napaka pri razčlenjevanju podatkov");
+					console.log("Napaka pri razčlenjevanju podatkov " + e);
 					return;
 				}
 				prikazi(odgovorJSON);
@@ -25,10 +25,10 @@ function prikazi(odgovorJSON){
 
 	var table = document.createElement("table");
 	table.className = "table table-striped";
-	table.style.cssText = 'margin-top: 50px; background-color: white;margin-left:auto;margin-right:auto;width:80%;';
+	table.style.cssText = 'margin-top: 50px; background-color: white;margin-left:auto;margin-right:auto;width:90%;';
 	fragment.appendChild(table);
 
-	table_header = ["Kraj odhoda", "Kraj prihoda", "Čas odhoda", "Cena"];
+	table_header = ["Kraj odhoda", "Kraj prihoda", "Čas odhoda", "Voznik", "Cena"];
 	var thead = document.createElement("thead");
 	table.appendChild(thead);
 	var tr = document.createElement("tr");
