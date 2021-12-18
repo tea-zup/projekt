@@ -15,8 +15,7 @@
 		<div class="center" id='main'>
 			<?php include "navbar.php"?>
 
-			<div id='tablelaPrevozov'>
-			<div>
+			<div id='tablelaPrevozov'><div>
 		</div>
 	</body>
 </html>
