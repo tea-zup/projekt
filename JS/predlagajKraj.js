@@ -11,8 +11,8 @@ function predlagajKraj(tip){
         option.text = odgovorJSON[i][tip];
         select.add(option);
       }
-      //$('#kraj_odhoda').selectpicker('refresh'); //druga opcija
-      $('.selectpicker').selectpicker('refresh');
+      $('#kraj_odhoda').selectpicker('refresh');
+      // $('.selectpicker').selectpicker('refresh'); //druga opcija, vec teh class-ov
     }
   }
   xmlhttp.open("GET","/projekt/api/prevozi.php?tip=" + tip, true);

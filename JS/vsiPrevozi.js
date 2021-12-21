@@ -42,8 +42,15 @@ function prikazi(odgovorJSON){
   table.appendChild(tbody);
 	for (var i = 0; i < odgovorJSON.length ; i++) { //table body
 		var tr = document.createElement("tr");
-
+		tr.setAttribute("data-toggle", "modal");
+		tr.setAttribute("data-target", "#rezervacijaModal");
+		tr.setAttribute("onclick", "dopolniModal(this.cells[0].innerHTML, this.cells[1].innerHTML, this.cells[2].innerHTML, "+odgovorJSON[i]['cena']+","+odgovorJSON[i]['prosta_mesta']+")");
+		
 		for (var stolpec in odgovorJSON[i]){
+			if (stolpec == "id"){
+				id = odgovorJSON[i][stolpec];
+				break; //tudi 'prosta mesta' ne damo v tabelo
+			}
 			var td = document.createElement("td");
 			td.innerHTML = odgovorJSON[i][stolpec];
 			if (stolpec == "cena"){
@@ -54,4 +61,32 @@ function prikazi(odgovorJSON){
 		tbody.appendChild(tr);
 	}
 	document.getElementById("tablelaPrevozov").appendChild(fragment);
+}
+
+function dopolniModal(krajOdhoda, krajPrihoda, dt, cena, prosta_mesta){
+	const weekday = ["nedelja", "ponedeljek", "torek", "sreda", "četrtek", "petek", "sobota"];
+	dan_tedna_date = moment(dt, "DD-MM-YYYY").toDate();
+	dan_tedna = weekday[dan_tedna_date.getDay()];
+  dan = moment(dan_tedna_date).format('DD.MM.YYYY');
+	cas = dt.split(" ")[1];
+
+	document.getElementById("rez_krajOdhoda").innerHTML = "Kraj odhoda: " + krajOdhoda + ",";
+	document.getElementById("rez_krajPrihoda").innerHTML = "Kraj prihoda: " + krajPrihoda + ",";
+	document.getElementById("rez_dt").innerHTML = "Datum in ura odhoda: " + dan_tedna + ", " + dan + ", " + cas + ".";
+
+	select = document.getElementById("select_st_oseb");
+	for (var i = 1; i <= prosta_mesta ; i++) {
+		var option = document.createElement('option');
+		option.text = i;
+		option.value = i;
+		select.add(option);
+	}
+	$("#select_st_oseb").val($("#select_st_oseb option:first").val()); //1 always selected by default
+	$("#select_st_oseb").selectpicker("refresh");
+
+	$("#select_st_oseb").change(function() {
+		var izbranoStOseb = $("#select_st_oseb").val();
+		document.getElementById("cena").innerHTML = "Cena je: " + izbranoStOseb * cena + " €.";
+	});
+	$('#select_st_oseb').trigger('change'); //init cena za 1 osebo
 }
