@@ -11,15 +11,8 @@
   switch($_SERVER["REQUEST_METHOD"]){
 
 	case 'GET':
-
-  if (!empty($_GET["tip"])){
-    predlagajKraj($_GET["tip"]);
-  }
-  else {
     vsiPrevozi();
-  }
-  #vsiPrevozi();
-	break;
+	  break;
 
 	case 'OPTIONS':
 		http_response_code(204);
@@ -48,24 +41,4 @@ function vsiPrevozi(){
   echo json_encode($odgovor);
 }
 
-function predlagajKraj($tip){
-  global $zbirka;
-  $odgovor = array();
-  $tip = mysqli_escape_string($zbirka, $tip);
-
-  $poizvedba = "SELECT DISTINCT " . $tip . " FROM prevozi";
-
-  $rezultat = mysqli_query($zbirka, $poizvedba);
-
-  if(mysqli_num_rows($rezultat) > 0) {
-    while ($vrstica = mysqli_fetch_assoc($rezultat)) {
-      $odgovor[] = $vrstica;
-    }
-    http_response_code(200);
-    echo json_encode($odgovor);
-  }
-  else {
-    http_response_code(404);		//Not found
-  }
-}
 ?>
