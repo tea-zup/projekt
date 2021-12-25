@@ -14,6 +14,7 @@
     <link rel="stylesheet" type="text/css" href="CSS/stil.css" />
 		<script src="js/vsiPrevozi.js"></script>
 		<script src="js/predlagajKraj.js"></script>
+		<script src="js/rezervacija.js"></script>
 	</head>
 	<body onload="vsiPrevozi(); predlagajKraj('kraj_odhoda'); predlagajKraj('kraj_prihoda');">
 		<div class="center" id='main'>
@@ -57,27 +58,28 @@
 		      </div>
 		      <div class="modal-body">
 						<div class="container-fluid">
+							<div id="id_prevoza" hidden></div>
 							<div class="row"><div class="col-sm-12"><span id="rez_krajOdhoda"></span></div></div>
 							<div class="row"><div class="col-sm-12"><span id="rez_krajPrihoda"></span></div></div>
 							<div class="row"><div class="col-sm-12"><span id="rez_dt"></span></div></div>
 							<br>
-							<form>
+							<form id="obrazecRezerviraj">
 								<div class="form-group row">
-									<label for="imeinpriimek" class="col-sm-4 col-form-label text-right">Ime in priimek:</label>
+									<label class="col-sm-4 col-form-label text-right">Ime in priimek:</label>
 									<div class="col-sm-8">
-										<input type="text" class="form-control" id="reg_imeinpriimek">
+										<input name="imeinpriimek" type="text" class="form-control" id="reg_imeinpriimek">
 									</div>
 								</div>
 							  <div class="form-group row">
-							    <label for="email" class="col-sm-4 col-form-label text-right">Email:</label>
+							    <label class="col-sm-4 col-form-label text-right">Email:</label>
 							    <div class="col-sm-8">
-							      <input type="email" class="form-control" id="reg_email">
+							      <input name="email" type="email" class="form-control" id="reg_email">
 							    </div>
 							  </div>
 								<div class="form-group row">
-									<label for="tel" class="col-sm-4 col-form-label text-right">Telefon:</label>
+									<label class="col-sm-4 col-form-label text-right">Telefon:</label>
 									<div class="col-sm-8">
-										<input type="tel" class="form-control" id="reg_tel">
+										<input name="tel" type="tel" class="form-control" id="reg_tel">
 									</div>
 								</div>
 								<div class="row">
@@ -106,7 +108,7 @@
 							<div class="row">
 								<div class="col-sm-12 d-flex justify-content-center">
 									<div class="form-check">
-									  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+									  <input class="form-check-input" type="checkbox" value="" id="pogojiCheckbox">
 									  <label class="form-check-label" for="flexCheckDefault">Strinjam se s pogoji poslovanja</label>
 									</div>
 								</div>
@@ -114,9 +116,24 @@
 						</div>
 					</div>
 		      <div class="modal-footer">
-		        <button type="button" class="btn btn-primary">Potrdi</button>
+		        <button type="button" class="btn btn-primary" id="potrdiRezervacijo" onclick="rezervacija()">Potrdi</button>
 		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Zapri</button>
 		      </div>
+					<div id="rezervacija-ok" class = "collapse" style="width:85%;margin:auto;">
+						<div class="alert alert-success" role="alert" style="text-align: center;">
+							Rezervacija je ok!
+						</div>
+					</div>
+					<div id='rezervacija-prazna-polja' class = "collapse" style="width:85%;margin:auto;">
+						<div class="alert alert-warning" role="alert" style="text-align: center;">
+							Izpolni vsa polja!
+						</div>
+					</div>
+					<div id="rezervacija-err" class = "collapse" style="width:85%;margin:auto;">
+						<br>
+						<div id='rezervacija-err-text' class="alert alert-danger" role="alert" style="text-align: center;">
+						</div>
+					</div>
 		    </div>
 		  </div>
 		</div>

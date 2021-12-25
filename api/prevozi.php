@@ -30,7 +30,7 @@ function vsiPrevozi(){
   global $zbirka;
 
   $odgovor = array();
-  $poizvedba = "SELECT kraj_odhoda, kraj_prihoda, cas_odhoda, voznik, cena, id, prosta_mesta FROM prevozi WHERE cas_odhoda > NOW() AND prosta_mesta > 0 ORDER BY kraj_odhoda DESC, kraj_prihoda DESC, cas_odhoda ASC";
+  $poizvedba = "SELECT kraj_odhoda, kraj_prihoda, cas_odhoda, voznik, cena, id, prosta_mesta FROM prevozi WHERE cas_odhoda > NOW() AND prosta_mesta > 0 ORDER BY kraj_odhoda ASC";
   $rezultat = mysqli_query($zbirka, $poizvedba);
   while ($vrstica = mysqli_fetch_assoc($rezultat)) {
     $vrstica["cas_odhoda"] = date('d-m-Y H:i', strtotime($vrstica["cas_odhoda"]));
