@@ -84,6 +84,10 @@ function prijava_uporabnika(){
 
       if (password_verify($geslo, $hashDB)){
         http_response_code(200);
+
+        session_start();
+        $_SESSION['loggedin'] = true;
+        $_SESSION['uporabnisko_ime'] = $uporabnisko_ime;
       }
       else {
         http_response_code(404);

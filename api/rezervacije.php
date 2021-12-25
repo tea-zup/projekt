@@ -60,9 +60,10 @@ function rezerviraj(){
     $st_oseb = mysqli_escape_string($zbirka, $podatki["st_oseb"]);
     $nacin_placila = mysqli_escape_string($zbirka, $podatki["nacin_placila"]);
     $id_prevoza = mysqli_escape_string($zbirka, $podatki["id_prevoza"]);
+    session_start();
+    $uporabnisko_ime_prijavljenega = $_SESSION['uporabnisko_ime'];
 
-
-    $poizvedba="INSERT INTO rezervacije (id, id_prevoza, imeinpriimek, email, tel, st_oseb, nacin_placila) VALUES (NULL, '$id_prevoza', '$imeinpriimek', '$email', '$tel', '$st_oseb', '$nacin_placila')";
+    $poizvedba="INSERT INTO rezervacije (id, id_prevoza, uporabnisko_ime, imeinpriimek, email, tel, st_oseb, nacin_placila) VALUES (NULL, '$id_prevoza', '$uporabnisko_ime_prijavljenega', '$imeinpriimek', '$email', '$tel', '$st_oseb', '$nacin_placila')";
 
     if(mysqli_query($zbirka, $poizvedba)){
       http_response_code(201);
@@ -95,7 +96,7 @@ function rezervacija_spremeni_prosta_mesta(){
     $poizvedba="UPDATE prevozi SET prosta_mesta = '$nova_prosta_mesta' WHERE id = '$id_prevoza'";
 
     if(mysqli_query($zbirka, $poizvedba)){
-      http_response_code(201);
+      http_response_code(204);
       //$odgovor=URL_vira($id_prevoza);
       //echo json_encode($odgovor);
     }

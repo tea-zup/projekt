@@ -93,16 +93,8 @@ function podobiProstaMesta(id_prevoza, st_oseb){
 
   var httpRequest = new XMLHttpRequest();
   httpRequest.onreadystatechange = function(){
-    if (this.readyState == 4 && this.status == 200){
-        try {
-          console.log(this.responseText);
-          var odgovorJSON = JSON.parse(this.responseText);
-          console.log(odgovorJSON);
-        }
-        catch(e){
-          console.log("Napaka pri razčlenjevanju podatkov " + e);
-          return;
-        }
+    if (this.readyState == 4 && this.status == 204){
+			console.log(this.responseText);
     }
   };
 
