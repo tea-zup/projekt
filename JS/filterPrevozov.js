@@ -3,6 +3,11 @@ function filterPrevozov(){
   kraj_odhoda = $("#kraj_odhoda").val();
   kraj_prihoda = $("#kraj_prihoda").val();
   cas_odhoda = moment(data["cas_odhoda"]).toDate();
+  if (kraj_prihoda == "" || kraj_odhoda == ""){
+    document.getElementById("tablelaPrevozov").innerHTML = "";
+    vsiPrevozi();
+    return;
+  }
 
 	var httpRequest = new XMLHttpRequest();
 	httpRequest.onreadystatechange = function(){
@@ -16,7 +21,12 @@ function filterPrevozov(){
 					console.log("Napaka pri razčlenjevanju podatkov " + e);
 					return;
 				}
-				prikazi(odgovorJSON); //v main je linkanih vec js-ov, prikazi je eden od njih
+        if (jQuery.isEmptyObject(odgovorJSON)){
+          document.getElementById("tablelaPrevozov").innerHTML = "<br><h5 style='width:85%;margin:auto'> Za izbran dan in uro ni na voljo nobenega prevoza. Poskusi znova z drugačnimi parametri. <h5>";
+        }
+        else {
+          prikazi(odgovorJSON); //v main je linkanih vec js-ov, prikazi je eden od njih
+        }
 		}
 	};
 
