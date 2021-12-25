@@ -15,6 +15,7 @@
 		<script src="js/vsiPrevozi.js"></script>
 		<script src="js/predlagajKraj.js"></script>
 		<script src="js/rezervacija.js"></script>
+		<script src="js/filterPrevozov.js"></script>
 	</head>
 	<body onload="vsiPrevozi(); predlagajKraj('kraj_odhoda'); predlagajKraj('kraj_prihoda');">
 		<div class="center" id='main'>
@@ -23,7 +24,7 @@
 				<div class="row d-flex h-100" >
 					<div class="col-6" style="margin-left: 5%;">
 					<br>
-					<form id="obrazecRezervacija">
+					<form id="obrazecFilterPrevozov">
 						<div class="mb-3">
 							<label name="kraj_odhoda">Iščem prevoz od: </label>
 							<select id="kraj_odhoda" class="selectpicker" data-live-search="true" title="Išči...">
@@ -35,18 +36,20 @@
 							</select>
 						</div>
 						<div class="mb-3 form-group pmd-textfield pmd-textfield-floating-label">
-							<label name="cas_odhoda">ob: </label>
-							<input type="datetime-local" id="meeting-time" name="meeting-time" value="<?php echo date("Y-m-d", strtotime("+1 day"))?>T08:00" min="<?php echo date("Y-m-d")?>T00:00" style="border-radius: 5px;">
+							<label>ob: </label>
+							<input type="datetime-local" id="meeting-time" name="cas_odhoda" value="<?php echo date("Y-m-d", strtotime("+1 day"))?>T08:00" min="<?php echo date("Y-m-d")?>T00:00" style="border-radius: 5px;">
 						</div>
 						<div class="text-center text-lg-start mt-4 pt-2">
-							<button id="rezervacijaGumb" type="button" class="btn btn-secondary btn-sm"
-								style="float:left;margin-top:-1em" data-toggle="modal" data-target="#rezervacijaModal">Rezervacija</button>
+							<button id="filterPrevozovGumb" type="button" class="btn btn-dark btn-md"
+								style="float:left;margin-top:-1em" onclick="filterPrevozov()">Išči prevoz</button>
 						</div>
 					</form>
 				</div>
 			</div>
 			<div id='tablelaPrevozov'></div>
 		</div>
+
+
 		<div id="rezervacijaModal" class="modal" tabindex="-1" role="dialog">
 		  <div class="modal-dialog" role="document">
 		    <div class="modal-content">
