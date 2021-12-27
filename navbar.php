@@ -20,6 +20,9 @@
       <li class="nav-item">
         <a class="nav-link" href="#">Moj profil</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="odjava.php">🌙</a>
+      </li>
     </ul>
 </div>
 </nav>
