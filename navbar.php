@@ -5,10 +5,10 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Domov <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="main.php">Domov <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Moje rezervacije</a>
+        <a class="nav-link" href="mojeRezervacije.php">Moje rezervacije</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Moje ponudbe</a>

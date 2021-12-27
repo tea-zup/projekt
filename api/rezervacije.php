@@ -11,8 +11,14 @@
   switch($_SERVER["REQUEST_METHOD"]){
 
 	case 'GET':
-    vseRezervacije();
-	  break;
+    if(!empty($_GET["uporabnisko_ime"])){
+      session_start();
+      uporabnikRezervacije($_SESSION['uporabnisko_ime']);
+    }
+    else {
+      vseRezervacije();
+    }
+    break;
 
   case 'POST':
     rezerviraj();
@@ -46,6 +52,25 @@ function vseRezervacije(){
 
   http_response_code(200);
   echo json_encode($odgovor);
+}
+
+
+function uporabnikRezervacije($uporabnisko_ime){
+
+  global $zbirka;
+  $uporabnisko_ime = mysqli_escape_string($zbirka, $uporabnisko_ime);
+
+  $odgovor = array();
+  $poizvedba = "SELECT * FROM rezervacije LEFT OUTER JOIN prevozi ON rezervacije.id_prevoza = prevozi.id WHERE rezervacije.uporabnisko_ime = '$uporabnisko_ime' ORDER BY prevozi.cas_odhoda ASC";
+  $rezultat = mysqli_query($zbirka, $poizvedba);
+  while ($vrstica = mysqli_fetch_assoc($rezultat)) {
+    $vrstica["cas_odhoda"] = date('d-m-Y H:i', strtotime($vrstica["cas_odhoda"]));
+    $odgovor[] = $vrstica;
+  }
+
+  http_response_code(200);
+  echo json_encode($odgovor);
+
 }
 
 function rezerviraj(){
