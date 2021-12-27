@@ -43,7 +43,7 @@ function prikaziRezervacije(odgovorJSON) {
 
   for (var i = 0 ; i < odgovorJSON.length ; i++) { //podatki tabele
     var tr = document.createElement("tr");
-    tr.setAttribute("style", "text-align: center"); 
+    tr.setAttribute("style", "text-align: center");
 
     if (odgovorJSON[i]["nacin_placila"] == "Gotovina"){ //shardcodano!
       var placano = "❌";
@@ -55,6 +55,12 @@ function prikaziRezervacije(odgovorJSON) {
 
     for (var stolpec in stolpci) {
       var td = document.createElement("td");
+      if (stolpec == 5){ //pazi!
+        td.setAttribute("data-toggle", "modal");
+        td.setAttribute("data-target", "#voznikModal");
+        var arg = "infoVoznik(" + "'" + stolpci[stolpec] + "'" + ")";
+        td.setAttribute("onclick", arg);
+      }
       td.innerHTML = stolpci[stolpec];
       tr.appendChild(td);
     }

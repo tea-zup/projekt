@@ -23,6 +23,10 @@
     }
 		break;
 
+  case 'GET':
+    pridobi_uporabnika($_GET["uporabnisko_ime"]);
+    break;
+
 	case 'OPTIONS':
 		http_response_code(204);
 		break;
@@ -33,6 +37,20 @@
 }
 
 mysqli_close($zbirka);
+
+function pridobi_uporabnika($uporabnisko_ime){
+
+  global $zbirka;
+
+  $uporabnisko_ime = mysqli_escape_string($zbirka, $uporabnisko_ime);
+  $poizvedba = "SELECT * FROM uporabniki WHERE uporabnisko_ime = '$uporabnisko_ime'";
+  $rezultat = mysqli_query($zbirka, $poizvedba);
+  $vrstica = mysqli_fetch_assoc($rezultat); //samo ena vrstica
+
+  http_response_code(200);
+  echo json_encode($vrstica);
+
+}
 
 function registracija_uporabnika(){
 
