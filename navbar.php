@@ -26,3 +26,10 @@
     </ul>
 </div>
 </nav>
+
+<?php
+session_start();
+if (!isset($_SESSION["loggedin"])){ #na vsaki strani (razen prijavi in registraciji) preverimo, če je uporabnik prijavljen
+  header("Location: prijava.php"); #ce uporabnik ni prijavljen ga preusmerimo na prijavo
+}
+?>
