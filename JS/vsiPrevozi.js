@@ -69,7 +69,6 @@ function dopolniModal(krajOdhoda, krajPrihoda, dt, cena, prosta_mesta, id){
 
 	document.getElementById("rez_krajOdhoda").innerHTML = "Kraj odhoda: " + krajOdhoda + ",";
 	document.getElementById("rez_krajPrihoda").innerHTML = "Kraj prihoda: " + krajPrihoda + ",";
-	dt = pretvoriDatumVString(dt);
 	document.getElementById("rez_dt").innerHTML = "Datum in ura odhoda: " + dt;
 
 	select.options.length = 0;
