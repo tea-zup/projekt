@@ -4,10 +4,12 @@
 		<title>Glavna stran</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Prevozi</title>
+		<script src="js/filterPrevozov.js"></script>
 		<script src="js/vsiPrevozi.js"></script>
 		<script src="js/predlagajKraj.js"></script>
 		<script src="js/rezervacija.js"></script>
 		<script src="js/filterPrevozov.js"></script>
+		<script src="js/pretvoriDatumVString.js"></script>
 	</head>
 	<?php include "head.php"?>
 	<body onload="vsiPrevozi(); predlagajKraj('kraj_odhoda'); predlagajKraj('kraj_prihoda');">

@@ -27,7 +27,7 @@ function prikaziRezervacije(odgovorJSON) {
   table.style.cssText = 'margin-top: 50px; background-color: white;margin-left:auto;margin-right:auto;width:90%;';
   fragment.appendChild(table);
 
-  table_header = ["Kraj odhoda", "Kraj prihoda", "Datum in ura odhoda", "Št. oseb", "Plačano", "Voznik", "Prekliči rezervacijo"]; // table header
+  table_header = ["Kraj odhoda", "Kraj prihoda", "Datum in ura odhoda", "Št. oseb", "Plačano", "Voznik", "Izbriši"]; // table header
   var thead = document.createElement("thead");
   table.appendChild(thead);
   var tr = document.createElement("tr");
@@ -43,6 +43,7 @@ function prikaziRezervacije(odgovorJSON) {
 
   for (var i = 0 ; i < odgovorJSON.length ; i++) { //podatki tabele
     var tr = document.createElement("tr");
+    tr.setAttribute("style", "text-align: center"); 
 
     if (odgovorJSON[i]["nacin_placila"] == "Gotovina"){ //shardcodano!
       var placano = "❌";
@@ -50,14 +51,14 @@ function prikaziRezervacije(odgovorJSON) {
     else { //kartica
       var placano = "✔️";
     }
-    var stolpci = [odgovorJSON[i]["kraj_odhoda"], odgovorJSON[i]["kraj_prihoda"], odgovorJSON[i]["cas_odhoda"], odgovorJSON[i]["st_oseb"], placano, odgovorJSON[i]["voznik"], "🗑️"];
+    var stolpci = [odgovorJSON[i]["kraj_odhoda"], odgovorJSON[i]["kraj_prihoda"], pretvoriDatumVString(odgovorJSON[i]["cas_odhoda"]), odgovorJSON[i]["st_oseb"], placano, odgovorJSON[i]["voznik"], "🗑️"];
 
     for (var stolpec in stolpci) {
       var td = document.createElement("td");
       td.innerHTML = stolpci[stolpec];
       tr.appendChild(td);
     }
-    td.setAttribute("style", "text-align: center"); //samo zadnji (kos za izbris) je poravnan na sredino
+
     tbody.appendChild(tr);
   }
   document.getElementById("tablelaRezervacij").appendChild(fragment);

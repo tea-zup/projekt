@@ -46,6 +46,7 @@ function prikazi(odgovorJSON){
 		tr.setAttribute("data-target", "#rezervacijaModal");
 		tr.setAttribute("onclick", "dopolniModal(this.cells[0].innerHTML, this.cells[1].innerHTML, this.cells[2].innerHTML, "+odgovorJSON[i]['cena']+","+odgovorJSON[i]['prosta_mesta']+","+odgovorJSON[i]['id']+")");
 
+		odgovorJSON[i]["cas_odhoda"] = pretvoriDatumVString(odgovorJSON[i]["cas_odhoda"]);
 		for (var stolpec in odgovorJSON[i]){
 			if (stolpec == "id"){
 				id = odgovorJSON[i][stolpec];
@@ -65,15 +66,11 @@ function prikazi(odgovorJSON){
 
 function dopolniModal(krajOdhoda, krajPrihoda, dt, cena, prosta_mesta, id){
 	document.getElementById("id_prevoza").innerHTML = id; //id skrijemo v html
-	const weekday = ["nedelja", "ponedeljek", "torek", "sreda", "četrtek", "petek", "sobota"];
-	dan_tedna_date = moment(dt, "DD-MM-YYYY").toDate();
-	dan_tedna = weekday[dan_tedna_date.getDay()];
-  dan = moment(dan_tedna_date).format('DD.MM.YYYY');
-	cas = dt.split(" ")[1];
 
 	document.getElementById("rez_krajOdhoda").innerHTML = "Kraj odhoda: " + krajOdhoda + ",";
 	document.getElementById("rez_krajPrihoda").innerHTML = "Kraj prihoda: " + krajPrihoda + ",";
-	document.getElementById("rez_dt").innerHTML = "Datum in ura odhoda: " + dan_tedna + ", " + dan + ", " + cas + ".";
+	dt = pretvoriDatumVString(dt);
+	document.getElementById("rez_dt").innerHTML = "Datum in ura odhoda: " + dt;
 
 	select.options.length = 0;
 	select = document.getElementById("select_st_oseb");

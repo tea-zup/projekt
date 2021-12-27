@@ -1,5 +1,6 @@
 <head>
   <script src="js/mojeRezervacije.js"></script>
+  <script src="js/pretvoriDatumVString.js"></script>
 </head>
 <?php include "head.php"?>
 <body onload="mojeRezervacije()">
