@@ -55,10 +55,16 @@ function prikaziRezervacije(odgovorJSON) {
 
     for (var stolpec in stolpci) {
       var td = document.createElement("td");
-      if (stolpec == 5){ //pazi!
+      if (stolpec == 5){ //pazi! voznik modal
         td.setAttribute("data-toggle", "modal");
         td.setAttribute("data-target", "#voznikModal");
         var arg = "infoVoznik(" + "'" + stolpci[stolpec] + "'" + ")";
+        td.setAttribute("onclick", arg);
+      }
+      if (stolpec == 6){ //pazi! gumb izbris rezervacije
+        td.setAttribute("data-toggle", "modal");
+        td.setAttribute("data-target", "#izbrisRezervacije");
+        var arg = "dopolniModalIzbris(" + JSON.stringify(stolpci[0]) + ", " + JSON.stringify(stolpci[1]) +  ", " + JSON.stringify(stolpci[2]) + ", " + JSON.stringify(odgovorJSON[i]["id"]) + ")";
         td.setAttribute("onclick", arg);
       }
       td.innerHTML = stolpci[stolpec];

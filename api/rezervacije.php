@@ -28,6 +28,15 @@
     rezervacija_spremeni_prosta_mesta();
     break;
 
+  case 'DELETE':
+    if (isset($_GET["id"])){
+      izbrisiRezervacijo($_GET["id"]);
+    }
+    else {
+      http_response_code(400);	// Bad Request
+    }
+    break;
+
 	case 'OPTIONS':
 		http_response_code(204);
 		break;
@@ -61,13 +70,12 @@ function uporabnikRezervacije($uporabnisko_ime){
   $uporabnisko_ime = mysqli_escape_string($zbirka, $uporabnisko_ime);
 
   $odgovor = array();
-  $poizvedba = "SELECT * FROM rezervacije LEFT OUTER JOIN prevozi ON rezervacije.id_prevoza = prevozi.id WHERE rezervacije.uporabnisko_ime = '$uporabnisko_ime' ORDER BY prevozi.cas_odhoda ASC";
+  $poizvedba = "SELECT prevozi.kraj_odhoda, prevozi.kraj_prihoda, prevozi.cas_odhoda, rezervacije.st_oseb, rezervacije.nacin_placila, prevozi.voznik, rezervacije.id, rezervacije.id_prevoza FROM rezervacije LEFT OUTER JOIN prevozi ON prevozi.id = rezervacije.id_prevoza WHERE rezervacije.uporabnisko_ime = '$uporabnisko_ime' ORDER BY prevozi.cas_odhoda ASC";
   $rezultat = mysqli_query($zbirka, $poizvedba);
   while ($vrstica = mysqli_fetch_assoc($rezultat)) {
     $vrstica["cas_odhoda"] = date('d-m-Y H:i', strtotime($vrstica["cas_odhoda"]));
     $odgovor[] = $vrstica;
   }
-
   http_response_code(200);
   echo json_encode($odgovor);
 
@@ -125,12 +133,49 @@ function rezervacija_spremeni_prosta_mesta(){
       //$odgovor=URL_vira($id_prevoza);
       //echo json_encode($odgovor);
     }
-    else{
+    else {
       http_response_code(500);
       if($DEBUG){
         pripravi_odgovor_napaka(mysqli_error($zbirka));
       }
     }
+  }
+}
+
+function izbrisiRezervacijo($id){
+
+  global $zbirka, $DEBUG;
+  $id = mysqli_escape_string($zbirka, $id);
+
+  if (rezervacija_obstaja($id)){
+
+    $poizvedba = "SELECT rezervacije.st_oseb, rezervacije.id_prevoza, prevozi.prosta_mesta FROM rezervacije LEFT OUTER JOIN prevozi ON prevozi.id = rezervacije.id_prevoza WHERE rezervacije.id = '$id' ";
+    $rezultat = mysqli_query($zbirka, $poizvedba);
+    $rezultat = mysqli_fetch_assoc($rezultat);
+    $st_oseb = $rezultat["st_oseb"];
+    $id_prevoza = $rezultat["id_prevoza"];
+    $prosta_mesta = $rezultat["prosta_mesta"];
+
+    $nova_prosta_mesta = $prosta_mesta + $st_oseb;
+    $poizvedba="UPDATE prevozi SET prosta_mesta = '$nova_prosta_mesta' WHERE id = '$id_prevoza'";
+
+    if(mysqli_query($zbirka, $poizvedba)){
+
+      $poizvedba="DELETE FROM rezervacije WHERE id = '$id'";
+
+      if(mysqli_query($zbirka, $poizvedba)) {
+        http_response_code(204);
+      }
+      else {
+        http_response_code(500);
+      }
+    }
+    else {
+      http_response_code(500);
+    }
+  }
+  else {
+    http_response_code(404);
   }
 }
 

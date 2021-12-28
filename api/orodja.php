@@ -56,6 +56,22 @@ function uporabnik_obstaja($uporabnisko_ime)
 	}
 }
 
+function rezervacija_obstaja($id){
+	global $zbirka;
+	$id = mysqli_escape_string($zbirka, $id);
+
+	$poizvedba="SELECT * FROM rezervacije WHERE id = '$id'";
+
+	if(mysqli_num_rows(mysqli_query($zbirka, $poizvedba)) > 0)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
 /**
  * Funkcija pripravi URL podanega vira
  *
