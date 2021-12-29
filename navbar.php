@@ -11,7 +11,7 @@
         <a class="nav-link" href="mojeRezervacije.php">Moje rezervacije</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Moje ponudbe</a>
+        <a class="nav-link" href="mojePonudbe.php">Moje ponudbe</a>
       </li>
     </ul>
   </div>
