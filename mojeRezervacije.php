@@ -42,7 +42,8 @@
 		<div class="modal-content">
 			<div class="modal-header flex-column">
 				<div class="icon-box">
-					<i class="material-icons">&#xf00d;</i>
+					<!-- <i class="material-icons">&#xf00d;</i> -->
+          <i class="fas fa-times"></i>
 				</div>
 				<h4 class="modal-title w-100"  id="izbrisModalHeader">Ali res želiš izbrisati rezervacijo?</h4>
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>

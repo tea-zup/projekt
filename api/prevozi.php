@@ -24,6 +24,10 @@
     }
 	  break;
 
+  case 'POST':
+    dodajPrevoz();
+    break;
+
 	case 'OPTIONS':
 		http_response_code(204);
 		break;
@@ -93,5 +97,33 @@ function uporabnikPonudbe($uporabnisko_ime){
   }
   http_response_code(200);
   echo json_encode($odgovor);
+}
+
+function dodajPrevoz(){
+
+  global $zbirka;
+  $podatki = json_decode(file_get_contents('php://input'), true);
+
+  if(isset($podatki["kraj_odhoda"], $podatki["kraj_prihoda"], $podatki["cas_odhoda"], $podatki["prosta_mesta"], $podatki["cena"])){
+    $kraj_odhoda = mysqli_escape_string($zbirka, $podatki["kraj_odhoda"]);
+    $kraj_prihoda = mysqli_escape_string($zbirka, $podatki["kraj_prihoda"]);
+    $cas_odhoda = mysqli_escape_string($zbirka, $podatki["cas_odhoda"]);
+    $prosta_mesta = mysqli_escape_string($zbirka, $podatki["prosta_mesta"]);
+    $cena = mysqli_escape_string($zbirka, $podatki["cena"]);
+    session_start();
+    $voznik= $_SESSION['uporabnisko_ime'];
+
+    $poizvedba="INSERT INTO prevozi (id, voznik, kraj_odhoda, kraj_prihoda, cas_odhoda, prosta_mesta, cena) VALUES (NULL, '$voznik', '$kraj_odhoda', '$kraj_prihoda', '$cas_odhoda', '$prosta_mesta', '$cena')";
+
+    if(mysqli_query($zbirka, $poizvedba)){
+      http_response_code(201);
+    }
+    else{
+      http_response_code(500);
+      if($DEBUG){
+        pripravi_odgovor_napaka(mysqli_error($zbirka));
+      }
+    }
+  }
 }
 ?>

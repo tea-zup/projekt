@@ -23,13 +23,14 @@ function prikaziPonudbe(odgovorJSON){
 
   var table = document.createElement("table"); //table
   table.className = "table table-striped";
-  table.style.cssText = 'margin-top: 50px; background-color: white;margin-left:auto;margin-right:auto;width:90%;';
+  table.style.cssText = 'background-color: white;margin-left:auto;margin-right:auto;width:95%;';
   fragment.appendChild(table);
 
   table_header = ["Kraj odhoda", "Kraj prihoda", "Datum in ura odhoda", "Cena", "Zasedena mesta", "Prosta mesta", "Izbriši"]; // table header
   var thead = document.createElement("thead");
   table.appendChild(thead);
   var tr = document.createElement("tr");
+  tr.setAttribute("style", "text-align: center");
   thead.appendChild(tr);
   for (var i = 0 ; i < table_header.length ; i++) { //table header
     th = document.createElement("th");
@@ -43,7 +44,7 @@ function prikaziPonudbe(odgovorJSON){
   for (var i = 0 ; i < odgovorJSON.length ; i++) { //podatki tabele
     var tr = document.createElement("tr");
     tr.setAttribute("style", "text-align: center");
-    var stolpci = [odgovorJSON[i]["kraj_odhoda"], odgovorJSON[i]["kraj_prihoda"], pretvoriDatumVString(odgovorJSON[i]["cas_odhoda"]), odgovorJSON[i]["cena"], odgovorJSON[i]["zasedena_mesta"], odgovorJSON[i]["prosta_mesta"], "🗑️"];
+    var stolpci = [odgovorJSON[i]["kraj_odhoda"], odgovorJSON[i]["kraj_prihoda"], pretvoriDatumVString(odgovorJSON[i]["cas_odhoda"]), odgovorJSON[i]["cena"], odgovorJSON[i]["zasedena_mesta"], odgovorJSON[i]["prosta_mesta"], "<i class='fa fa-trash' aria-hidden='true'></i>"];
 
     for (var stolpec in stolpci) {
       var td = document.createElement("td");

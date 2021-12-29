@@ -51,7 +51,7 @@ function prikaziRezervacije(odgovorJSON) {
     else { //kartica
       var placano = "✔️";
     }
-    var stolpci = [odgovorJSON[i]["kraj_odhoda"], odgovorJSON[i]["kraj_prihoda"], pretvoriDatumVString(odgovorJSON[i]["cas_odhoda"]), odgovorJSON[i]["st_oseb"], placano, odgovorJSON[i]["voznik"], "🗑️"];
+    var stolpci = [odgovorJSON[i]["kraj_odhoda"], odgovorJSON[i]["kraj_prihoda"], pretvoriDatumVString(odgovorJSON[i]["cas_odhoda"]), odgovorJSON[i]["st_oseb"], placano, odgovorJSON[i]["voznik"], "<i class='fa fa-trash' aria-hidden='true'></i>"];
 
     for (var stolpec in stolpci) {
       var td = document.createElement("td");
