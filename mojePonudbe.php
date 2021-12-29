@@ -1,6 +1,7 @@
 <head>
   <script src="js/mojePonudbe.js"></script>
   <script src="js/dodajPrevoz.js"></script>
+  <script src="js/izbrisi.js"></script>
   <link rel="stylesheet" type="text/css" href="CSS/deleteModal.css" />
 </head>
 <?php include "head.php"?>
@@ -100,4 +101,25 @@
       </div>
     </div>
   </div>
+</div>
+
+<div id="izbrisPrevoza" class="modal">
+	<div class="modal-dialog modal-confirm">
+		<div class="modal-content">
+			<div class="modal-header flex-column">
+				<div class="icon-box">
+          <i class="fas fa-times"></i>
+				</div>
+				<h4 class="modal-title w-100"  id="izbrisModalHeader">Ali res želiš izbrisati rezervacijo?</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			</div>
+			<div class="modal-body">
+        <h6 id="izbrisModalBody"></h6>
+			</div>
+			<div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-danger" onclick="izbrisi('prevozi')">Izbriši</button>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Prekliči</button>
+			</div>
+		</div>
+	</div>
 </div>

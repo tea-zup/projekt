@@ -64,7 +64,7 @@ function prikaziRezervacije(odgovorJSON) {
       if (stolpec == 6){ //pazi! gumb izbris rezervacije
         td.setAttribute("data-toggle", "modal");
         td.setAttribute("data-target", "#izbrisRezervacije");
-        var arg = "dopolniModalIzbris(" + JSON.stringify(stolpci[0]) + ", " + JSON.stringify(stolpci[1]) +  ", " + JSON.stringify(stolpci[2]) + ", " + JSON.stringify(odgovorJSON[i]["id"]) + ")";
+        var arg = "dopolniModalIzbris(" + JSON.stringify(stolpci[0]) + ", " + JSON.stringify(stolpci[1]) +  ", " + JSON.stringify(stolpci[2]) + ", " + JSON.stringify(odgovorJSON[i]["id"]) + ", 'rezervacije')";
         td.setAttribute("onclick", arg);
       }
       td.innerHTML = stolpci[stolpec];

@@ -31,6 +31,15 @@
     dodajPrevoz();
     break;
 
+  case 'DELETE':
+    if (isset($_GET["id"])){
+      izbrisiPrevoz($_GET["id"]);
+    }
+    else {
+      http_response_code(400);	// Bad Request
+    }
+    break;
+
 	case 'OPTIONS':
 		http_response_code(204);
 		break;
@@ -144,5 +153,27 @@ function pridobiPotnike($id){
 
   http_response_code(200);
   echo json_encode($odgovor);
+}
+function izbrisiPrevoz($id){
+  global $zbirka, $DEBUG;
+  $id = mysqli_escape_string($zbirka, $id);
+
+  if (prevoz_obstaja($id)){
+    $poizvedba="DELETE FROM prevozi WHERE id = '$id'";
+
+    if(mysqli_query($zbirka, $poizvedba)) {
+      $poizvedba2="DELETE FROM rezervacije WHERE id_prevoza LIKE '$id'";
+
+      if(mysqli_query($zbirka, $poizvedba2)) {
+        http_response_code(204);
+      }
+      else {
+        http_response_code(500);
+      }
+    }
+    else {
+      http_response_code(500);
+    }
+  }
 }
 ?>

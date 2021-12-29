@@ -54,6 +54,12 @@ function prikaziPonudbe(odgovorJSON){
         var arg = "modalPotniki(" + "'" + odgovorJSON[i]["id"] + "'" + ")";
         td.setAttribute("onclick", arg);
       }
+      if (stolpec == 6){ //pazi! gumb izbris rezervacije
+        td.setAttribute("data-toggle", "modal");
+        td.setAttribute("data-target", "#izbrisPrevoza");
+        var arg = "dopolniModalIzbris(" + JSON.stringify(odgovorJSON[i]["kraj_odhoda"]) + ", " + JSON.stringify(odgovorJSON[i]["kraj_prihoda"]) +  ", " + JSON.stringify(odgovorJSON[i]["cas_odhoda"]) + ", " + JSON.stringify(odgovorJSON[i]["id"]) + ", 'prevozi')";
+        td.setAttribute("onclick", arg);
+      }
       td.innerHTML = stolpci[stolpec];
       tr.appendChild(td);
     }
