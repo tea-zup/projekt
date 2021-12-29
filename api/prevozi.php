@@ -19,6 +19,9 @@
       session_start();
       uporabnikPonudbe($_SESSION['uporabnisko_ime']);
     }
+    else if (isset($_GET["id"])) {
+      pridobiPotnike($_GET["id"]);
+    }
     else {
       vsiPrevozi(); //vsi prosti, ne pretekli prevozi
     }
@@ -125,5 +128,21 @@ function dodajPrevoz(){
       }
     }
   }
+}
+
+function pridobiPotnike($id){
+
+  global $zbirka;
+  $id = mysqli_escape_string($zbirka, $id);
+
+  $odgovor = array();
+  $poizvedba = "SELECT * FROM rezervacije WHERE id_prevoza = '$id' ";
+  $rezultat = mysqli_query($zbirka, $poizvedba);
+  while ($vrstica = mysqli_fetch_assoc($rezultat)) {
+    $odgovor[] = $vrstica; //cas odhoda je ze tipa date
+  }
+
+  http_response_code(200);
+  echo json_encode($odgovor);
 }
 ?>

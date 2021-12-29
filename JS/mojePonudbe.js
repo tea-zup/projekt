@@ -48,6 +48,12 @@ function prikaziPonudbe(odgovorJSON){
 
     for (var stolpec in stolpci) {
       var td = document.createElement("td");
+      if (stolpec == 4){
+        td.setAttribute("data-toggle", "modal");
+        td.setAttribute("data-target", "#potnikiModal");
+        var arg = "modalPotniki(" + "'" + odgovorJSON[i]["id"] + "'" + ")";
+        td.setAttribute("onclick", arg);
+      }
       td.innerHTML = stolpci[stolpec];
       tr.appendChild(td);
     }
@@ -55,4 +61,42 @@ function prikaziPonudbe(odgovorJSON){
     tbody.appendChild(tr);
   }
   document.getElementById("tablelaPonudb").appendChild(fragment);
+}
+
+function modalPotniki(id_prevoza){
+  document.getElementById("id_prevoza").innerHTML = id_prevoza;
+
+  var httpRequest = new XMLHttpRequest();
+  httpRequest.onreadystatechange = function(){
+    if (this.readyState == 4 && this.status == 200){
+        try {
+          var odgovorJSON = JSON.parse(this.responseText);
+          console.log(odgovorJSON);
+          var fragment = document.createDocumentFragment();
+          arrayLabels = ["Uporabniško ime: ", "Ime in priimek: ", "Št. oseb: ", "Telefon: ", "Email: ", "Način plačila: "];
+          arrayValues = ["uporabnisko_ime", "imeinpriimek", "st_oseb", "tel", "email", "nacin_placila"];
+          for (var i = 0 ; i < odgovorJSON.length ; i++){
+            for (var j = 0 ; j < arrayValues.length ; j++){
+              var divRow = document.createElement("div");
+              divRow.className = "row";
+              var divCol = document.createElement("div");
+              divRow.className = "col-sm-12";
+              var span = document.createElement("span");
+              span.innerHTML = "<b>" + arrayLabels[j] + "</b>" + odgovorJSON[i][arrayValues[j]];
+              fragment.appendChild(divRow).appendChild(divCol).appendChild(span);
+            }
+            var br = document.createElement("br");
+            fragment.appendChild(br);
+          }
+          document.getElementById("potnikPodatki").appendChild(fragment);
+        }
+        catch(e){
+          console.log("Napaka pri razčlenjevanju podatkov " + e);
+          return;
+        }
+    }
+  };
+
+  httpRequest.open("GET",  "/projekt/api/prevozi.php?id=" + id_prevoza, true);
+  httpRequest.send();
 }

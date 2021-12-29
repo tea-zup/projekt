@@ -33,6 +33,7 @@
         </button>
       </div>
       <div class="modal-body">
+        <div id="id_prevoza" hidden></div>
         <div class="container-fluid" style="width:80%; margin:auto">
           <form id="obrazecDodajPrevoz">
             <div class="form-group mb-3" >
@@ -75,6 +76,26 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" id="dodajPrevoz" onclick="dodajPrevoz()">Dodaj</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Zapri</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="potnikiModal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Informacije o potnikih:</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="id_rezervacije" hidden></div>
+        <div class="container-fluid" id="potnikPodatki"></div>
+      </div>
+      <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Zapri</button>
       </div>
     </div>
