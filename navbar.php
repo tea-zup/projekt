@@ -18,7 +18,7 @@
   <div class="collapse navbar-collapse">
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
-        <a class="nav-link" href="#">Moj profil</a>
+        <a class="nav-link" href="profil.php">Moj profil</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="odjava.php">🌙</a>

@@ -24,7 +24,17 @@
 		break;
 
   case 'GET':
-    pridobi_uporabnika($_GET["uporabnisko_ime"]);
+    if (isset($_GET["uporabnisko_ime"])){
+      if ($_GET["uporabnisko_ime"] == "currentUser"){
+        session_start();
+        $_GET["uporabnisko_ime"] = $_SESSION['uporabnisko_ime'];
+      }
+      pridobi_uporabnika($_GET["uporabnisko_ime"]);
+    }
+    break;
+
+  case 'PUT':
+    posodobi_uporabnika();
     break;
 
 	case 'OPTIONS':
@@ -115,6 +125,36 @@ function prijava_uporabnika(){
     else {
       http_response_code(404);
       pripravi_odgovor_napaka("Napacno ime ali geslo.");
+    }
+  }
+}
+function posodobi_uporabnika(){
+
+  global $zbirka;
+  $podatki = json_decode(file_get_contents('php://input'), true);
+
+  session_start();
+  $uporabnisko_ime = $_SESSION['uporabnisko_ime'];
+
+  if (isset($podatki["geslo"], $podatki["ime"], $podatki["priimek"], $podatki["email"])){
+
+    $ime = mysqli_escape_string($zbirka, $podatki["ime"]);
+    $priimek = mysqli_escape_string($zbirka, $podatki["priimek"]);
+    $email = mysqli_escape_string($zbirka, $podatki["email"]);
+
+    if (mysqli_escape_string($zbirka, $podatki["geslo"]) == "*********"){
+      $poizvedba="UPDATE uporabniki SET ime = '$ime', priimek = '$priimek', email ='$email' WHERE uporabnisko_ime = '$uporabnisko_ime' ";
+    }
+    else {
+      $geslo = password_hash(mysqli_escape_string($zbirka, $podatki["geslo"]), PASSWORD_DEFAULT);
+      $poizvedba="UPDATE uporabniki SET ime = '$ime', priimek = '$priimek', email ='$email', geslo='$geslo' WHERE uporabnisko_ime = '$uporabnisko_ime' ";
+    }
+
+    if(mysqli_query($zbirka, $poizvedba)){
+      http_response_code(204);
+    }
+    else {
+      http_response_code(500);
     }
   }
 }
