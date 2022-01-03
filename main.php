@@ -35,7 +35,7 @@
 						</div>
 						<div class="text-center text-lg-start mt-4 pt-2">
 							<button id="filterPrevozovGumb" type="button" class="btn btn-dark btn-md"
-								style="float:left;margin-top:-1em" onclick="filterPrevozov()">Išči prevoz</button>
+								style="float:left;margin-top:-1em;" onclick="filterPrevozov()">Išči prevoz</button>
 						</div>
 					</form>
 				</div>

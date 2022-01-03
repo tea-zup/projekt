@@ -10,7 +10,7 @@
   <?php include "navbar.php"?>
   <div class="container-fluid">
     <br>
-    <div class="row" style="margin-bottom:5px;margin-left:auto; margin-right:auto; width:95%;" >
+    <div class="row" style="margin-bottom:5px;margin-left:auto; margin-right:auto; width:85%;" >
       <div class="col-9"></div>
       <div class="col-3">
         <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#dodajPrevozModal" style="float:right;">Dodaj Prevoz</button>

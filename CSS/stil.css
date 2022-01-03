@@ -1,11 +1,12 @@
 body {
-	background-color: #95B9C7;
+	background-image: url("/projekt/img/main_background.jpg");
+	background-color: whitesmoke;
 	font-family:"Calibri";
 }
 .center{
 	margin-left:auto;
 	margin-right:auto;
-	width:60%;
+	width:75%;
 }
 .float{
 	float:left;

@@ -23,7 +23,7 @@ function prikaziPonudbe(odgovorJSON){
 
   var table = document.createElement("table"); //table
   table.className = "table table-striped";
-  table.style.cssText = 'background-color: white;margin-left:auto;margin-right:auto;width:95%;';
+  table.style.cssText = 'background-color: white;margin-left:auto;margin-right:auto;width:85%;';
   fragment.appendChild(table);
 
   table_header = ["Kraj odhoda", "Kraj prihoda", "Datum in ura odhoda", "Cena", "Zasedena mesta", "Prosta mesta", "Izbriši"]; // table header

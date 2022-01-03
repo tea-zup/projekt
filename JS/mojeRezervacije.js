@@ -24,7 +24,7 @@ function prikaziRezervacije(odgovorJSON) {
 
   var table = document.createElement("table"); //table
   table.className = "table table-striped";
-  table.style.cssText = 'margin-top: 50px; background-color: white;margin-left:auto;margin-right:auto;width:90%;';
+  table.style.cssText = 'margin-top: 50px; background-color: white;margin-left:auto;margin-right:auto;width:85%;';
   fragment.appendChild(table);
 
   table_header = ["Kraj odhoda", "Kraj prihoda", "Datum in ura odhoda", "Št. oseb", "Plačano", "Voznik", "Izbriši"]; // table header
