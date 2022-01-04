@@ -14,8 +14,7 @@ function mojeRezervacije(){
         prikaziRezervacije(odgovorJSON);
     }
   };
-  uporabnisko_ime = "dummyText"; //trenutnega uporabnika dobimo s sejne spremenljivke
-  httpRequest.open("GET",  "/projekt/api/rezervacije.php?uporabnisko_ime=" + uporabnisko_ime, true);
+  httpRequest.open("GET",  "/projekt/api/rezervacije.php", true);
   httpRequest.send();
 }
 

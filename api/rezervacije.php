@@ -11,13 +11,8 @@
   switch($_SERVER["REQUEST_METHOD"]){
 
 	case 'GET':
-    if(!empty($_GET["uporabnisko_ime"])){
-      session_start();
-      uporabnikRezervacije($_SESSION['uporabnisko_ime']);
-    }
-    else {
-      vseRezervacije();
-    }
+    session_start();
+    uporabnikRezervacije($_SESSION['uporabnisko_ime']);
     break;
 
   case 'POST':
@@ -47,21 +42,6 @@
 }
 
 mysqli_close($zbirka);
-
-function vseRezervacije(){
-
-  global $zbirka;
-
-  $odgovor = array();
-  $poizvedba = "SELECT * FROM rezervacije";
-  $rezultat = mysqli_query($zbirka, $poizvedba);
-  while ($vrstica = mysqli_fetch_assoc($rezultat)) {
-    $odgovor[] = $vrstica;
-  }
-
-  http_response_code(200);
-  echo json_encode($odgovor);
-}
 
 
 function uporabnikRezervacije($uporabnisko_ime){
