@@ -19,10 +19,6 @@
     rezerviraj();
     break;
 
-  case 'PUT': //spremeni st. prostih mest pri dodajanju / brisanju rezervacije
-    rezervacija_spremeni_prosta_mesta();
-    break;
-
   case 'DELETE':
     if (isset($_GET["id"])){
       izbrisiRezervacijo($_GET["id"]);
@@ -79,41 +75,25 @@ function rezerviraj(){
     $poizvedba="INSERT INTO rezervacije (id, id_prevoza, uporabnisko_ime, imeinpriimek, email, tel, st_oseb, nacin_placila) VALUES (NULL, '$id_prevoza', '$uporabnisko_ime_prijavljenega', '$imeinpriimek', '$email', '$tel', '$st_oseb', '$nacin_placila')";
 
     if(mysqli_query($zbirka, $poizvedba)){
-      http_response_code(201);
-      //$odgovor=URL_vira($id_prevoza);
-      //echo json_encode($odgovor);
-    }
-    else{
-      http_response_code(500);
-      if($DEBUG){
-        pripravi_odgovor_napaka(mysqli_error($zbirka));
+
+      $poizvedba = "SELECT prosta_mesta FROM prevozi WHERE id = '$id_prevoza'";
+      $rezultat = mysqli_query($zbirka, $poizvedba);
+      $vrstica = mysqli_fetch_assoc($rezultat);
+
+      $nova_prosta_mesta = $vrstica["prosta_mesta"] - $st_oseb;
+      $poizvedba="UPDATE prevozi SET prosta_mesta = '$nova_prosta_mesta' WHERE id = '$id_prevoza'";
+
+      if(mysqli_query($zbirka, $poizvedba)){
+        http_response_code(201);
+      }
+      else {
+        http_response_code(500);
+        if($DEBUG){
+          pripravi_odgovor_napaka(mysqli_error($zbirka));
+        }
       }
     }
-  }
-}
-
-function rezervacija_spremeni_prosta_mesta(){
-  global $zbirka, $DEBUG;
-  $podatki = json_decode(file_get_contents('php://input'), true);
-
-  if(isset($podatki["id_prevoza"], $podatki["st_oseb"])){
-
-    $id_prevoza = mysqli_escape_string($zbirka, $podatki["id_prevoza"]);
-    $st_oseb = mysqli_escape_string($zbirka, $podatki["st_oseb"]);
-
-    $poizvedba = "SELECT prosta_mesta FROM prevozi WHERE id = '$id_prevoza'";
-    $rezultat = mysqli_query($zbirka, $poizvedba);
-    $vrstica = mysqli_fetch_assoc($rezultat);
-
-    $nova_prosta_mesta = $vrstica["prosta_mesta"] - $st_oseb;
-    $poizvedba="UPDATE prevozi SET prosta_mesta = '$nova_prosta_mesta' WHERE id = '$id_prevoza'";
-
-    if(mysqli_query($zbirka, $poizvedba)){
-      http_response_code(204);
-      //$odgovor=URL_vira($id_prevoza);
-      //echo json_encode($odgovor);
-    }
-    else {
+    else{
       http_response_code(500);
       if($DEBUG){
         pripravi_odgovor_napaka(mysqli_error($zbirka));

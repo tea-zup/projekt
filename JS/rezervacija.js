@@ -62,7 +62,6 @@ function rezervacija(){
   			try {
           $("#potrdiRezervacijo").css("background-color", "green");
           $("#rezervacija-ok").show();
-          podobiProstaMesta(data["id_prevoza"], data["st_oseb"]);
           setTimeout(function (){
             $("#potrdiRezervacijo").css("background-color", "#007bff");
             $("#rezervacija-ok").hide();
@@ -85,19 +84,4 @@ function rezervacija(){
   	httpRequest.open("POST", "/projekt/api/rezervacije.php", true);
   	httpRequest.send(JSONdata);
   }
-}
-function podobiProstaMesta(id_prevoza, st_oseb){
-
-  data = {"id_prevoza": id_prevoza, "st_oseb": st_oseb};
-  var JSONdata = JSON.stringify(data, null, "  ");
-
-  var httpRequest = new XMLHttpRequest();
-  httpRequest.onreadystatechange = function(){
-    if (this.readyState == 4 && this.status == 204){
-			console.log(this.responseText);
-    }
-  };
-
-  httpRequest.open("PUT",  "/projekt/api/rezervacije.php", true);
-  httpRequest.send(JSONdata);
 }
