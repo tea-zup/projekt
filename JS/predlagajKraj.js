@@ -22,6 +22,6 @@ function predlagajKraj(tip){
       // $('.selectpicker').selectpicker('refresh'); //druga opcija, vec teh class-ov
     }
   }
-  xmlhttp.open("GET","/projekt/api/prevozi.php", true);
+  xmlhttp.open("GET","/projekt-api/api/prevozi.php", true);
   xmlhttp.send();
 }

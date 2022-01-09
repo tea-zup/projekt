@@ -14,7 +14,7 @@ function mojePonudbe(){
     }
   };
   uporabnisko_ime = "dummyText"; //trenutnega uporabnika dobimo s sejne spremenljivke
-  httpRequest.open("GET",  "/projekt/api/prevozi.php?uporabnisko_ime=" + uporabnisko_ime, true);
+  httpRequest.open("GET",  "/projekt-api/api/prevozi.php?uporabnisko_ime=" + uporabnisko_ime, true);
   httpRequest.send();
 }
 
@@ -103,6 +103,6 @@ function modalPotniki(id_prevoza){
     }
   };
 
-  httpRequest.open("GET",  "/projekt/api/prevozi.php?id=" + id_prevoza, true);
+  httpRequest.open("GET",  "/projekt-api/api/prevozi.php?id=" + id_prevoza, true);
   httpRequest.send();
 }

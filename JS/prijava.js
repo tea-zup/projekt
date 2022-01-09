@@ -48,7 +48,7 @@ function prijava(){
       }
     };
 
-    xmlhttp.open("POST", "/projekt/api/uporabniki.php", true);
+    xmlhttp.open("POST", "/projekt-api/api/uporabniki.php", true);
     xmlhttp.send(JSONdata);
   }
 

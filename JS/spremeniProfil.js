@@ -39,6 +39,6 @@ function spremeniProfil(){
     }
   };
 
-  httpRequest.open("PUT",  "/projekt/api/uporabniki.php", true);
+  httpRequest.open("PUT",  "/projekt-api/api/uporabniki.php", true);
   httpRequest.send(JSONdata);
 }

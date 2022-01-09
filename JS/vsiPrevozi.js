@@ -14,7 +14,7 @@ function vsiPrevozi(){
 		}
 	};
 
-	httpRequest.open("GET",  "/projekt/api/prevozi.php", true);
+	httpRequest.open("GET",  "/projekt-api/api/prevozi.php", true);
 	httpRequest.send();
 
 }

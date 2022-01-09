@@ -29,7 +29,7 @@ function infoVoznik(voznik){
 		}
 	};
 
-	httpRequest.open("GET",  "/projekt/api/uporabniki.php?uporabnisko_ime=" + voznik, true);
+	httpRequest.open("GET",  "/projekt-api/api/uporabniki.php?uporabnisko_ime=" + voznik, true);
 	httpRequest.send();
 
 }

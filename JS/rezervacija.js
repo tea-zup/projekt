@@ -81,7 +81,7 @@ function rezervacija(){
 
   		}
   	};
-  	httpRequest.open("POST", "/projekt/api/rezervacije.php", true);
+  	httpRequest.open("POST", "/projekt-api/api/rezervacije.php", true);
   	httpRequest.send(JSONdata);
   }
 }

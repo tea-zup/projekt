@@ -19,6 +19,6 @@ function naloziProfil(){
     }
   };
   var currentUser = "currentUser";
-  httpRequest.open("GET",  "/projekt/api/uporabniki.php?uporabnisko_ime=" + currentUser, true);
+  httpRequest.open("GET",  "/projekt-api/api/uporabniki.php?uporabnisko_ime=" + currentUser, true);
   httpRequest.send();
 }

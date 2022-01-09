@@ -14,7 +14,7 @@ function mojeRezervacije(){
         prikaziRezervacije(odgovorJSON);
     }
   };
-  httpRequest.open("GET",  "/projekt/api/rezervacije.php", true);
+  httpRequest.open("GET",  "/projekt-api/api/rezervacije.php", true);
   httpRequest.send();
 }
 

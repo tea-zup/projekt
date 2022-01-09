@@ -65,7 +65,7 @@ function dodajPrevoz(){
       }
     };
 
-    httpRequest.open("POST",  "/projekt/api/prevozi.php", true);
+    httpRequest.open("POST",  "/projekt-api/api/prevozi.php", true);
     httpRequest.send(JSONdata);
   }
 }

@@ -30,6 +30,6 @@ function filterPrevozov(){
 		}
 	};
 
-	httpRequest.open("GET",  "/projekt/api/prevozi.php?kraj_odhoda="+kraj_odhoda+"&kraj_prihoda="+kraj_prihoda+"&cas_odhoda="+cas_odhoda, true);
+	httpRequest.open("GET",  "/projekt-api/api/prevozi.php?kraj_odhoda="+kraj_odhoda+"&kraj_prihoda="+kraj_prihoda+"&cas_odhoda="+cas_odhoda, true);
 	httpRequest.send();
 }
