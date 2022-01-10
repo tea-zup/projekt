@@ -43,7 +43,10 @@ function izbrisi(tabela){ //brisemo lahko rezervacije in prevoze
     }
   };
 
-  httpRequest.open("DELETE",  "/projekt-api/api/"+tabela+".php?id="+id, true);
+	var auth_cookie = extractCookies()["auth_cookie"];
+	var uporabnisko_ime = extractCookies()["uporabnisko_ime"];
+
+  httpRequest.open("DELETE",  "/projekt-api/api/"+tabela+".php?id="+id+"&auth_cookie="+auth_cookie+"&uporabnisko_ime="+uporabnisko_ime, true);
   httpRequest.send();
 
 }

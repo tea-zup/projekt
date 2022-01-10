@@ -1,7 +1,6 @@
 <?php
-  session_start();
-  unset($_SESSION["loggedin"]);
-  unset($_SESSION["uporabnisko_ime"]);
+  unset($_COOKIE["auth_cookie"]);
+  setcookie("auth_cookie", null, -1, "/");
 
   header("Location: prijava.php");
   exit();

@@ -26,6 +26,12 @@ function prijava(){
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function(){
       if (this.readyState == 4 && this.status == 200){
+				var odgovorJSON = JSON.parse(this.responseText); //daj piškotek v browser
+				const d = new Date();
+				d.setTime(d.getTime() + (2 * 24 * 60 * 60 * 1000));
+				let expires = "expires="+d.toUTCString();
+				document.cookie = "auth_cookie=" + odgovorJSON["auth_cookie"] + ";" + expires + ";path=/";
+				document.cookie = "uporabnisko_ime=" + data["uporabnisko_ime"] + ";" + expires + ";path=/";
         $("#prijavaGumb").css("background-color", "green");
         $("#prijava-ok-msg").show();
         setTimeout(function (){

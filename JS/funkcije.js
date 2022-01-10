@@ -1,3 +1,16 @@
+function extractCookies() {
+	var cookie = document.cookie; //all cookies
+	var output = {};
+	cookie.split(/\s*;\s*/).forEach(function(pair) {
+	  pair = pair.split(/\s*=\s*/);
+	  var name = decodeURIComponent(pair[0]);
+	  var value = decodeURIComponent(pair.splice(1).join('='));
+	  output[name] = value;
+	});
+	return output;
+}
+
+
 function pretvoriDatumVString(dt){ //lep zapis datuma, npr. petek 23.11.2021 ob 14:00
 	const weekday = ["nedelja", "ponedeljek", "torek", "sreda", "četrtek", "petek", "sobota"];
 	dan_tedna_date = moment(dt, "DD-MM-YYYY").toDate();
@@ -29,7 +42,10 @@ function infoVoznik(voznik){
 		}
 	};
 
-	httpRequest.open("GET",  "/projekt-api/api/uporabniki.php?uporabnisko_ime=" + voznik, true);
+	var auth_cookie = extractCookies()["auth_cookie"];
+	var uporabnisko_ime = extractCookies()["uporabnisko_ime"];
+
+	httpRequest.open("GET",  "/projekt-api/api/uporabniki.php?voznik=" + voznik + "&auth_cookie=" + auth_cookie + "&uporabnisko_ime=" + uporabnisko_ime, true);
 	httpRequest.send();
 
 }

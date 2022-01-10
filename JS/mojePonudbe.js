@@ -13,8 +13,10 @@ function mojePonudbe(){
         prikaziPonudbe(odgovorJSON);
     }
   };
-  uporabnisko_ime = "dummyText"; //trenutnega uporabnika dobimo s sejne spremenljivke
-  httpRequest.open("GET",  "/projekt-api/api/prevozi.php?uporabnisko_ime=" + uporabnisko_ime, true);
+  var auth_cookie = extractCookies()["auth_cookie"];
+  var uporabnisko_ime = extractCookies()["uporabnisko_ime"];
+
+  httpRequest.open("GET",  "/projekt-api/api/prevozi.php?uporabnisko_ime=" + uporabnisko_ime + "&auth_cookie=" + auth_cookie + "&moje_ponudbe=" + 'true', true);
   httpRequest.send();
 }
 
@@ -77,7 +79,7 @@ function modalPotniki(id_prevoza){
     if (this.readyState == 4 && this.status == 200){
         try {
           var odgovorJSON = JSON.parse(this.responseText);
-          console.log(odgovorJSON);
+          // console.log(odgovorJSON);
           var fragment = document.createDocumentFragment();
           arrayLabels = ["Uporabniško ime: ", "Ime in priimek: ", "Št. oseb: ", "Telefon: ", "Email: ", "Način plačila: "];
           arrayValues = ["uporabnisko_ime", "imeinpriimek", "st_oseb", "tel", "email", "nacin_placila"];
@@ -94,6 +96,7 @@ function modalPotniki(id_prevoza){
             var br = document.createElement("br");
             fragment.appendChild(br);
           }
+          document.getElementById("potnikPodatki").innerHTML = "";
           document.getElementById("potnikPodatki").appendChild(fragment);
         }
         catch(e){
@@ -103,6 +106,9 @@ function modalPotniki(id_prevoza){
     }
   };
 
-  httpRequest.open("GET",  "/projekt-api/api/prevozi.php?id=" + id_prevoza, true);
+  var auth_cookie = extractCookies()["auth_cookie"];
+  var uporabnisko_ime = extractCookies()["uporabnisko_ime"];
+
+  httpRequest.open("GET",  "/projekt-api/api/prevozi.php?id=" + id_prevoza + "&uporabnisko_ime=" + uporabnisko_ime + "&auth_cookie=" + auth_cookie, true);
   httpRequest.send();
 }

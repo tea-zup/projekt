@@ -15,7 +15,6 @@ const formToJSON = elements => [].reduce.call(elements, (data, element) =>
 function dodajPrevoz(){
 
   const data = formToJSON(document.getElementById("obrazecDodajPrevoz").elements);
-  var JSONdata = JSON.stringify(data, null, "  ");
 
   if (data["kraj_odhoda"] == '' || data["kraj_prihoda"] == '' || data["cas_odhoda"] == '' ||  data["prosta_mesta"] == '' || data["cena"] == ''){
     $("#dodajPrevoz").css("background-color", "red");
@@ -64,6 +63,11 @@ function dodajPrevoz(){
           }
       }
     };
+		var auth_cookie = extractCookies()["auth_cookie"];
+		var uporabnisko_ime = extractCookies()["uporabnisko_ime"];
+		data["auth_cookie"] = auth_cookie;
+		data["uporabnisko_ime"] = uporabnisko_ime;
+		var JSONdata = JSON.stringify(data, null, "  ");
 
     httpRequest.open("POST",  "/projekt-api/api/prevozi.php", true);
     httpRequest.send(JSONdata);

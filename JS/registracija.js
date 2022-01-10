@@ -15,12 +15,24 @@ const formToJSON = elements => [].reduce.call(elements, (data, element) =>
 function registracija(){
 	const data = formToJSON(document.getElementById("obrazecRegistracija").elements);
 	data["tip"] = "registracija";
+	var email_re = /\S+@\S+\.\S+/;
 	if (data["uporabnisko_ime"] == '' || data["geslo"] == '' || data["ime"] == '' ||  data["priimek"] == '' || data["email"] == ''){
     $("#registracija-prazna-polja").show();
     setTimeout(function (){
       $("#registracija-prazna-polja").hide();
     }, 2000);
   }
+	else if (email_re.test(data["email"]) == false) {
+		$("#registracijaGumb").css("background-color", "red");
+		var msg = "Vnesi veljaven email naslov!";
+		document.getElementById("reg-err-alert-text").innerHTML = msg;
+		$("#odgovor-err-msg").show();
+		setTimeout(function (){
+			$("#registracijaGumb").css("background-color", "#007bff");
+			document.getElementById("reg-err-alert-text").innerHTML = '';
+			$("#odgovor-err-msg").hide();
+		}, 2000);
+	}
 	else {  //ni praznih polj
 		var JSONdata = JSON.stringify(data, null, "  ");
 

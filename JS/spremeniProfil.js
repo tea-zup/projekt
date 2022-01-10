@@ -19,6 +19,8 @@ const formToJSON = elements => [].reduce.call(elements, (data, element) =>
 function spremeniProfil(){
 
   const data = formToJSON(document.getElementById("spremeniProfil").elements);
+	data["auth_cookie"] = extractCookies()["auth_cookie"];
+	data["uporabnisko_ime"] = extractCookies()["uporabnisko_ime"];
   var JSONdata = JSON.stringify(data, null, "  ");
 
   var httpRequest = new XMLHttpRequest();

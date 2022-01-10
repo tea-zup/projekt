@@ -29,7 +29,8 @@ function filterPrevozov(){
         }
 		}
 	};
-
-	httpRequest.open("GET",  "/projekt-api/api/prevozi.php?kraj_odhoda="+kraj_odhoda+"&kraj_prihoda="+kraj_prihoda+"&cas_odhoda="+cas_odhoda, true);
+  var auth_cookie = extractCookies()["auth_cookie"];
+  var uporabnisko_ime = extractCookies()["uporabnisko_ime"];
+	httpRequest.open("GET",  "/projekt-api/api/prevozi.php?kraj_odhoda="+kraj_odhoda+"&kraj_prihoda="+kraj_prihoda+"&cas_odhoda="+cas_odhoda+"&auth_cookie="+auth_cookie+"&uporabnisko_ime="+uporabnisko_ime, true);
 	httpRequest.send();
 }

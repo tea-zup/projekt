@@ -11,10 +11,16 @@ function vsiPrevozi(){
 					return;
 				}
 				prikazi(odgovorJSON);
+
+		}
+		if (this.readyState == 4 && this.status == 403){
+			window.location = 'prijava.php';
 		}
 	};
+	var auth_cookie = extractCookies()["auth_cookie"];
+	var uporabnisko_ime = extractCookies()["uporabnisko_ime"];
 
-	httpRequest.open("GET",  "/projekt-api/api/prevozi.php", true);
+	httpRequest.open("GET",  "/projekt-api/api/prevozi.php?auth_cookie="+auth_cookie+"&uporabnisko_ime="+uporabnisko_ime, true);
 	httpRequest.send();
 
 }
@@ -42,6 +48,7 @@ function prikazi(odgovorJSON){
   table.appendChild(tbody);
 	for (var i = 0; i < odgovorJSON.length ; i++) { //table body
 		var tr = document.createElement("tr");
+		tr.setAttribute("title", "Klikni za rezervacijo");
 		tr.setAttribute("data-toggle", "modal");
 		tr.setAttribute("data-target", "#rezervacijaModal");
 		tr.setAttribute("onclick", "dopolniModal(this.cells[0].innerHTML, this.cells[1].innerHTML, this.cells[2].innerHTML, "+odgovorJSON[i]['cena']+","+odgovorJSON[i]['prosta_mesta']+","+odgovorJSON[i]['id']+")");
