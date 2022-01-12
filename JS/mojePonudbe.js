@@ -13,10 +13,11 @@ function mojePonudbe(){
         prikaziPonudbe(odgovorJSON);
     }
   };
-  var auth_cookie = extractCookies()["auth_cookie"];
-  var uporabnisko_ime = extractCookies()["uporabnisko_ime"];
 
-  httpRequest.open("GET",  "/projekt-api/api/prevozi.php?uporabnisko_ime=" + uporabnisko_ime + "&auth_cookie=" + auth_cookie + "&moje_ponudbe=" + 'true', true);
+
+  httpRequest.open("GET",  "/projekt-api/api/prevozi.php?moje_ponudbe=" + 'true', true);
+  httpRequest.setRequestHeader('AUTH-USER', uporabnisko_ime);
+  httpRequest.setRequestHeader('AUTH-COOKIE', auth_cookie);
   httpRequest.send();
 }
 
@@ -106,9 +107,8 @@ function modalPotniki(id_prevoza){
     }
   };
 
-  var auth_cookie = extractCookies()["auth_cookie"];
-  var uporabnisko_ime = extractCookies()["uporabnisko_ime"];
-
-  httpRequest.open("GET",  "/projekt-api/api/prevozi.php?id=" + id_prevoza + "&uporabnisko_ime=" + uporabnisko_ime + "&auth_cookie=" + auth_cookie, true);
+  httpRequest.open("GET",  "/projekt-api/api/prevozi.php?id=" + id_prevoza, true);
+  httpRequest.setRequestHeader('AUTH-USER', uporabnisko_ime);
+  httpRequest.setRequestHeader('AUTH-COOKIE', auth_cookie);
   httpRequest.send();
 }

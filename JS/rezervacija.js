@@ -22,8 +22,6 @@ function rezervacija(){
   data["st_oseb"] = st_oseb;
   data["nacin_placila"] = nacin_placila;
   data["id_prevoza"] = id_prevoza;
-	data["auth_cookie"] = extractCookies()["auth_cookie"];
-	data["uporabnisko_ime"] = extractCookies()["uporabnisko_ime"];
   var JSONdata = JSON.stringify(data, null, "  ");
 
   var email_re = /\S+@\S+\.\S+/;
@@ -85,6 +83,8 @@ function rezervacija(){
   	};
 
   	httpRequest.open("POST", "/projekt-api/api/rezervacije.php", true);
+		httpRequest.setRequestHeader('AUTH-USER', uporabnisko_ime);
+		httpRequest.setRequestHeader('AUTH-COOKIE', auth_cookie);
   	httpRequest.send(JSONdata);
   }
 }

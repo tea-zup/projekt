@@ -22,8 +22,9 @@ function predlagajKraj(tip){
       // $('.selectpicker').selectpicker('refresh'); //druga opcija, vec teh class-ov
     }
   }
-  var auth_cookie = extractCookies()["auth_cookie"];
-  var uporabnisko_ime = extractCookies()["uporabnisko_ime"];
-  xmlhttp.open("GET","/projekt-api/api/prevozi.php?auth_cookie="+auth_cookie+"&uporabnisko_ime="+uporabnisko_ime, true);
+
+  xmlhttp.open("GET","/projekt-api/api/prevozi.php", true);
+  xmlhttp.setRequestHeader('AUTH-USER', uporabnisko_ime);
+  xmlhttp.setRequestHeader('AUTH-COOKIE', auth_cookie);
   xmlhttp.send();
 }

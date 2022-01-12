@@ -1,3 +1,6 @@
+var auth_cookie = extractCookies()["auth_cookie"]; //global!
+var uporabnisko_ime = extractCookies()["uporabnisko_ime"];
+
 function extractCookies() {
 	var cookie = document.cookie; //all cookies
 	var output = {};
@@ -42,10 +45,9 @@ function infoVoznik(voznik){
 		}
 	};
 
-	var auth_cookie = extractCookies()["auth_cookie"];
-	var uporabnisko_ime = extractCookies()["uporabnisko_ime"];
-
-	httpRequest.open("GET",  "/projekt-api/api/uporabniki.php?voznik=" + voznik + "&auth_cookie=" + auth_cookie + "&uporabnisko_ime=" + uporabnisko_ime, true);
+	httpRequest.open("GET",  "/projekt-api/api/uporabniki.php?voznik=" + voznik, true);
+	httpRequest.setRequestHeader('AUTH-USER', uporabnisko_ime);
+	httpRequest.setRequestHeader('AUTH-COOKIE', auth_cookie);
 	httpRequest.send();
 
 }

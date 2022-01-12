@@ -17,10 +17,10 @@ function vsiPrevozi(){
 			window.location = 'prijava.php';
 		}
 	};
-	var auth_cookie = extractCookies()["auth_cookie"];
-	var uporabnisko_ime = extractCookies()["uporabnisko_ime"];
 
-	httpRequest.open("GET",  "/projekt-api/api/prevozi.php?auth_cookie="+auth_cookie+"&uporabnisko_ime="+uporabnisko_ime, true);
+	httpRequest.open("GET",  "/projekt-api/api/prevozi.php", true);
+	httpRequest.setRequestHeader('AUTH-USER', uporabnisko_ime);
+	httpRequest.setRequestHeader('AUTH-COOKIE', auth_cookie);
 	httpRequest.send();
 
 }

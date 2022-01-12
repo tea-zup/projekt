@@ -15,10 +15,9 @@ function mojeRezervacije(){
     }
   };
 
-  var auth_cookie = extractCookies()["auth_cookie"];
-  var uporabnisko_ime = extractCookies()["uporabnisko_ime"];
-
-  httpRequest.open("GET",  "/projekt-api/api/rezervacije.php?auth_cookie="+auth_cookie+"&uporabnisko_ime="+uporabnisko_ime, true);
+  httpRequest.open("GET",  "/projekt-api/api/rezervacije.php", true);
+  httpRequest.setRequestHeader('AUTH-USER', uporabnisko_ime);
+  httpRequest.setRequestHeader('AUTH-COOKIE', auth_cookie);
   httpRequest.send();
 }
 
