@@ -15,7 +15,7 @@ function mojePonudbe(){
   };
 
 
-  httpRequest.open("GET",  "/projekt-api/api/prevozi.php?moje_ponudbe=" + 'true', true);
+  httpRequest.open("GET",  "/projekt-api/api/prevozi.php/moje_ponudbe", true);
   httpRequest.setRequestHeader('AUTH-USER', uporabnisko_ime);
   httpRequest.setRequestHeader('AUTH-COOKIE', auth_cookie);
   httpRequest.send();
@@ -107,7 +107,7 @@ function modalPotniki(id_prevoza){
     }
   };
 
-  httpRequest.open("GET",  "/projekt-api/api/prevozi.php?id=" + id_prevoza, true);
+  httpRequest.open("GET",  "/projekt-api/api/prevozi.php/" + id_prevoza, true);
   httpRequest.setRequestHeader('AUTH-USER', uporabnisko_ime);
   httpRequest.setRequestHeader('AUTH-COOKIE', auth_cookie);
   httpRequest.send();
